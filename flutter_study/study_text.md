@@ -47,11 +47,34 @@
 
 6. children: 은 복수의 위젯을 설치 할 수 있다. [] 배열같이 이 괄호안에 위젯들은 콤마로 추가하면 된다.
 7. Row위젯은 내부 위젯을 수평으로 나열하고 Colum위젯은 내부 위젯을 수직으로 나열한다.
-8. SizeBox위젯은 위젯의 위치와 간격을 조정하기 위한 위젯인듯 하다.
+8. SizedBox위젯은 위젯의 위치와 간격을 조정하기 위한 위젯인듯 하다.
 9. 멤버의 팝업 설명문의 Type를 확인해라 그게 쓸 수 있는 데이터 이다.
    예:[mainAxisAlignment]의 설명팝업엔 [Type: MainAxisAlignment]가 써져있다.
 10. withOpacity(1~0.1~0)처럼 소수점 단위로 조절한다. 더블형임. Opacity는 불투명도란 의미임.
 11. 칼라는 Color.fromARGB로 조정을 많이 하는듯 하다. A는 알파. 투명도임. 전부 0~255까지 설정 가능함.
 12. padding 조절은 [symmetric] 이게 제일 많이 쓰일듯 하다.
     [padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),]
-13. 
+13. ['$']를 문자로 쓰고 싶을땐 ['\$']로 쓰면 된다.
+14. padding의 vertical이 수직 간격, horizontal이 수평 간격임.
+15. 코드의 파란 경고줄은 const 미설정 때문인데. [> open user settings]로 들어가서
+    settings.json 안에 editor.codeActionsOnSave 설정에서 "source.fixAll: true"를 추가해주면 자동으로 const가 붙음. 잘 모르겠지만 아래 설정이 있어서 난 자동 수정되었던거 같음.
+    "[dart]": {
+    "editor.codeActionsOnSave": {
+    "source.fixAll": true},}
+16. 위젯을 따로 파일로 옮긴후 그 위젯에다가 네임 파라메터를 추가해서 다른 클래서에서 대상 위젯을 재설정하여 사용할수 있다.
+    가령 버튼을 예를 들면 아래와 같이 버튼에 표시할 문자 배경색 문자색을 마이 버튼 클래스를 생성하면서 지정할수 있을것이다.
+
+    class MyButton extends StatelessWidget {
+    final String text;
+    final Color bgColor;
+    final Color textColor;
+
+    const MyButton(
+    {
+    required this.text,
+    required this.bgColor,
+    required this.textColor,
+    }
+    )
+    ...
+    }

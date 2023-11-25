@@ -12,27 +12,27 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.deepPurpleAccent,
-        appBar: AppBar(
-          backgroundColor: Colors.redAccent,
-          title: Text(
-            'Hello くるみ!',
-            strutStyle: const StrutStyle(
-              fontFamily: AutofillHints.birthday,
-              fontWeight: FontWeight.w500,
-            ),
-            style: TextStyle(
-              color: Colors.amber.shade400,
-            ),
-          ),
-        ),
-        body: const Center(
-          child: Text(
-            style: TextStyle(
-              fontSize: 50,
-              color: Colors.white,
-            ),
-            'Hello うめの!',
+        backgroundColor: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                'Hello!',
+              ),
+              const Text(
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 240, 140, 240),
+                ),
+                'Hello~',
+              ),
+            ],
           ),
         ),
       ),

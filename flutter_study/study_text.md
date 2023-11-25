@@ -44,4 +44,14 @@
       People({this.name});
       }
       var kim = Player(); // name parameter가 있지만 설정 안해도 됨.
-6. 
+
+6. children: 은 복수의 위젯을 설치 할 수 있다. [] 배열같이 이 괄호안에 위젯들은 콤마로 추가하면 된다.
+7. Row위젯은 내부 위젯을 수평으로 나열하고 Colum위젯은 내부 위젯을 수직으로 나열한다.
+8. SizeBox위젯은 위젯의 위치와 간격을 조정하기 위한 위젯인듯 하다.
+9. 멤버의 팝업 설명문의 Type를 확인해라 그게 쓸 수 있는 데이터 이다.
+   예:[mainAxisAlignment]의 설명팝업엔 [Type: MainAxisAlignment]가 써져있다.
+10. withOpacity(1~0.1~0)처럼 소수점 단위로 조절한다. 더블형임. Opacity는 불투명도란 의미임.
+11. 칼라는 Color.fromARGB로 조정을 많이 하는듯 하다. A는 알파. 투명도임. 전부 0~255까지 설정 가능함.
+12. padding 조절은 [symmetric] 이게 제일 많이 쓰일듯 하다.
+    [padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),]
+13. 

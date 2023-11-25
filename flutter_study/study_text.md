@@ -61,13 +61,14 @@
     "[dart]": {
     "editor.codeActionsOnSave": {
     "source.fixAll": true},}
-16. 위젯을 따로 파일로 옮긴후 그 위젯에다가 네임 파라메터를 추가해서 다른 클래서에서 대상 위젯을 재설정하여 사용할수 있다.
+16. 비슷한 여러개의 위젯을 따로따로 만들지 말고 하나 위젯을 따로 파일로 옮긴후 그 위젯에다가 네임 파라메터를 추가해서 다른 클래스에서 대상 위젯을 재설정하여 사용할수 있게 해주자.
     가령 버튼을 예를 들면 아래와 같이 버튼에 표시할 문자 배경색 문자색을 마이 버튼 클래스를 생성하면서 지정할수 있을것이다.
 
     class MyButton extends StatelessWidget {
     final String text;
     final Color bgColor;
     final Color textColor;
+    위에 변수들을 추가한후 코드 액션(컨트롤 + [.]) 메뉴에 [Create constructor for final fields]가 있다.
 
     const MyButton(
     {

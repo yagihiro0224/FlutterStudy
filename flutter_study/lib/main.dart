@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/screens/home_screen.dart';
 import 'package:flutter_study/widgets/my_app_bar.dart';
 import 'package:flutter_study/widgets/my_column.dart';
 // import 'dart:math' as math;
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         textTheme: const TextTheme(
           titleLarge: TextStyle(
-            color: Colors.indigoAccent,
+            color: Colors.white24,
           ),
         ),
       ),

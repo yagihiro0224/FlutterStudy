@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class MyColumn extends StatefulWidget {
@@ -23,6 +25,15 @@ class _MyColumnState extends State<MyColumn> {
     });
   }
 
+  late Timer timer;
+  void onTick(Timer timer) {
+    setState(() {});
+  }
+
+  void onStartTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), onTick);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,8 +41,12 @@ class _MyColumnState extends State<MyColumn> {
       children: [
         Center(
           child: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFFE8581C),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            alignment: Alignment.topLeft,
             padding: const EdgeInsets.all(1),
-            color: const Color(0xFFE8581C),
             child: Transform.translate(
               offset: const Offset(1, -1),
               child: Text(

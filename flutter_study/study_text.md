@@ -148,3 +148,20 @@
 35. dispose() 메소드는 위젯이 삭제 되거나 뭔가를 취소할때 자주 쓰일거다.
 36. build() 메소드는 위젯을 만든다.
 37. 새 파일 만들고 [st]만 쳐도 자동완성으로 기본 틀 만들어줌.
+38. Flexible는 flex: 설정값(1등등)으로 화면의 비율을 설정할수 있다. 이걸로 기종 화면 사이즈 상관없이 비율 조절이 가능하니까 자주 쓸거 같다.
+39. alignment：Alignment.bottomCenter 설정 등등으로 Text의 문자 위치 조절가능.
+40. onPressed에 넣을 함수가 없을땐 일단 이렇게 해두자.
+    onPressed: () {}
+41. Expanded 위젯은 위젯 내용을 화면 끝까지 확장시키면서 보여주는 위젯이다.
+42. late Timer timer; late는 나중에 값을 설정해도 된다는 의미이다.
+    late는 variable modifier이다. 사용하기 전에는 반드시 초기화를 해야한다.
+43. Time의 대표적인 사용예.
+    late Timer timer; // late로 타이머를 선언.
+    // 타이머에 쓰이는 함수에는 반드시 인자값으로 Timer timer를 넣어준다.
+    void onTick(Timer timer) {
+    setState(() {});
+    }
+    void onStartTimer() { // 버튼 눌렀을때 등 이 함수를 실행함.
+    // 여기에 onClick에 ()를 넣을 필요가 없다.
+    timer = Timer.periodic(const Duration(seconds: 1), onTick);
+    }

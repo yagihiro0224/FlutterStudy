@@ -79,3 +79,12 @@
     )
     ...
     }
+
+17. Widget안에 for문 쓰는법은 [...] 를 붙히는거다.
+    children: [
+    for (int i = 0; i < 7; i++) ...{
+    Text(numString.elementAt(i)),
+    }]
+
+18. logger.i(numStrs); 로그 표시하는 코드다.
+19. 

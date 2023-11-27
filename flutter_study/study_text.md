@@ -124,3 +124,27 @@
     값을 설정하는 부분에선 Icons.~로 설정한다. 아래는 Icon의 정의부분이다.
     Icon Icon(
     IconData? icon, {})
+29. StatefulWidget의 State는 위젯의 데이터와 UI를 저장하고 데이터가 변경되면 위젯의 UI도 변경된다.
+    StatefulWidget 위젯으로 변경 안하고 데이터 변경을 시작하면 아래와 같은 경고문이 뜬다.
+    This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: MyColumn.counter
+
+30. 화면을 인터렉티브로 만들어주는 setState함수를 해당 이벤트 함수에 쓰면 실시간으로 데이터 변경이 화면에 반영됨. setState를 부르는 순간 화면을 재표시 (build함수를 재실행)하기 때문에 이 함수안에 처리를 넣치 않아도 되긴함. 하지만 많은 사람들은 가독성을 위에 이 함수안에 처리를 넣고 있다고 함.
+    void onClick() {
+    setState(() {
+    counter = counter + 1;
+    });
+    }
+31. collection for 쓰는 법.
+    List<int> number = [1,2,3,4,5];
+    for(var n in number); // n이 number내부 데이터 들임.
+32. theme: ThemeData를 설정하면.
+
+33. Widget build(BuildContext context)의 [context]는 모든 상위 요소들에 대한 정보이다.
+    받아 올 데이터가 null일 경우를 예상해서 [?] 혹은 [!]를 붙힌다.
+    style: TextStyle(
+    color: Theme.of(context).textTheme.titleLarge!.color,)
+
+34. initState() 메소드는 초기화용. 딱 한번만 불린다. 거의 쓸일이 없을지도 모른다. 
+35. dispose() 메소드는 위젯이 삭제 되거나 뭔가를 취소할때 자주 쓰일거다. 
+36. build() 메소드는 위젯을 만든다.
+37.

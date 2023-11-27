@@ -85,6 +85,42 @@
     for (int i = 0; i < 7; i++) ...{
     Text(numString.elementAt(i)),
     }]
-
 18. logger.i(numStrs); 로그 표시하는 코드다.
-19. 
+19. Padding쓰는 법.
+    Padding(
+    padding: const EdgeInsets.all(30), // 이게 전체적으로 패딩해주므로 많이 쓰일듯.
+    chird: Row(
+    .....
+    ))
+20. Icon(Icons.~~~) 이렇게 아이콘 씀. 엄청 많음.
+21. Transform.scale은 내부 위젯 크기를 와꾸 보다 크게 만들어줄수 있다.
+    child: Transform.scale(
+    scale: 1.3, // 1을 기준으로 소수점 단위로 작게 혹은 크게 설정가능. 마이너스를 쓰면 내용이 뒤집어짐.
+    child: Text(...))
+22. Transform.translate는 내부 위젯의 표시 위치를 변경가능. Offset의 x y값을 1 기준으로 소수점단위로 변경가능.
+    child: Transform.translate(
+    offset: const Offset(130, -40),
+    child: Text(...))
+23. clipBehavior: Clip.hardEdge 설정으로 내부 위젯이 밖으로 넘어갔을때 그 넘어간 부분을 잘라줌.
+24. AppBar를 별도 클래스로 옮겼을때 생기는 에러 해결방법이다. PreferredSizeWidget임을 명시해주고
+    실제로 Size get preferredSize 사이즈도 지정해줘야함.
+    class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+    @override
+    Size get preferredSize => const Size.fromHeight(56.0);
+    }
+25. 칼라값을 인자값으로 넘길때 클래서 선언하는 부분의 데이터는 Colors는 안되는거 같음.
+    Color로 데이터 선언하고 실제로 설정하는 부분에선 Colors를 쓰도록 하자.
+    final Color appColor; // 여긴 Colors로 하면 안됨.
+    required this.appColor,
+    color: appColor,
+    --설정하는 부분은 Colors여도 괜찮음.--
+    (appColor: Colors.yellowAccent),
+26. 변수명 앞에 언더바[_]를 붙히는건 이 변수가 private 한 데이터라는걸 암시한다.
+27. 에러 메세지에 [constant] 붙어 있으면 일단 콘스트 문제임을 항시 기억해라.
+    Arguments of a constant creation must be constant expressions.
+    Try making the argument a valid constant, or use 'new' to call the constructor.
+
+28. 아이콘을 클래스 매개변수로 설정할때는 IconData이다.
+    값을 설정하는 부분에선 Icons.~로 설정한다. 아래는 Icon의 정의부분이다.
+    Icon Icon(
+    IconData? icon, {})

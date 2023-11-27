@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/widgets/my_app_bar.dart';
+import 'package:flutter_study/widgets/my_column.dart';
+// import 'dart:math' as math;
 
 void main() {
   runApp(const MyApp());
@@ -13,15 +16,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final String _strNameA = 'STUDY';
+  final String _strNameB = 'YOU';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text("BTCUSDT 1H Chart"),
-        ),
-        body: const Center(
-          child: Text('study'),
+        backgroundColor: Colors.blue.shade300,
+        appBar: MyAppBar(strName: _strNameA, appColor: Colors.yellowAccent),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              MyColumn(
+                strName: _strNameA,
+                icn: Icons.access_time_filled,
+              ),
+              MyColumn(
+                strName: _strNameB,
+                icn: Icons.account_circle,
+              ),
+              MyColumn(
+                strName: _strNameA,
+                icn: Icons.add_chart_sharp,
+              ),
+              MyColumn(
+                strName: _strNameB,
+                icn: Icons.account_balance_outlined,
+              ),
+            ],
+          ),
         ),
       ),
     );

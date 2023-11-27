@@ -165,3 +165,13 @@
     // 여기에 onClick에 ()를 넣을 필요가 없다.
     timer = Timer.periodic(const Duration(seconds: 1), onTick);
     }
+    // 멈출땐
+    timer.cancle();
+44. 클래스에 추가한 데이터를 프로파티(property)라고 부른다.
+45. 시간 표시 Duration 클래스.
+    // setSecond는 변환할 데이터. 이 코드만으로는 0:24:59.000000 으로 표시됨.
+    var duration = Duration(seconds: setSeconds);
+    // split 지정한 "." 문자를 기준으로 문자를 나눠서 배열로 받음.
+    [0:24:59 , 000000] -> 0:24:59 -> 24:59
+    // subString(전체문장 7자 중에 2자리까지를 제외하고 3자리부터 마지막까지)
+    duration.toString().split(".").first.subString(2, 7);

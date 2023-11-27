@@ -144,7 +144,7 @@
     style: TextStyle(
     color: Theme.of(context).textTheme.titleLarge!.color,)
 
-34. initState() 메소드는 초기화용. 딱 한번만 불린다. 거의 쓸일이 없을지도 모른다. 
-35. dispose() 메소드는 위젯이 삭제 되거나 뭔가를 취소할때 자주 쓰일거다. 
+34. initState() 메소드는 초기화용. 딱 한번만 불린다. 거의 쓸일이 없을지도 모른다.
+35. dispose() 메소드는 위젯이 삭제 되거나 뭔가를 취소할때 자주 쓰일거다.
 36. build() 메소드는 위젯을 만든다.
-37.
+37. 새 파일 만들고 [st]만 쳐도 자동완성으로 기본 틀 만들어줌.

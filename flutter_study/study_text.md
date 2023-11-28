@@ -148,7 +148,9 @@
 35. dispose() 메소드는 위젯이 삭제 되거나 뭔가를 취소할때 자주 쓰일거다.
 36. build() 메소드는 위젯을 만든다.
 37. 새 파일 만들고 [st]만 쳐도 자동완성으로 기본 틀 만들어줌.
-38. Flexible는 flex: 설정값(1등등)으로 화면의 비율을 설정할수 있다. 이걸로 기종 화면 사이즈 상관없이 비율 조절이 가능하니까 자주 쓸거 같다.
+38. [Flexible]는 flex: 설정값(1등등)으로 화면의 비율을 설정할수 있다.
+    이걸로 기종 화면 사이즈 상관없이 비율 조절이 가능하니까 자주 쓸거 같다.
+    그리고 Flexible은 전체 비율이므로 화면내에 [SingleChildScrollView]같은 스크롤 뷰가 있으면 런타임시에 에러가 나는거 같다.
 39. alignment：Alignment.bottomCenter 설정 등등으로 Text의 문자 위치 조절가능.
 40. onPressed에 넣을 함수가 없을땐 일단 이렇게 해두자.
     onPressed: () {}
@@ -206,8 +208,6 @@ return dataModelInstances;
 throw Error();
 }
 }
-[화면에서getApiDatas요청]
-
 [baseUrl,toDay,getApiDatas]에 [static]을 붙히는이유.
 static이 아니면 'getApiDatas' 함수를 각각의 'ApiService' 인스턴스가 소유하는 형태가 됩니다. 따라서 다음의 코드처럼 인스턴스를 만들고 함수를 호출해야 합니다.
 ApiService().getApiDatas();
@@ -252,4 +252,86 @@ ApiService.getApiDatas();
 59. [setState]는 가능하면 사용하고 싶지않다(전체 재표시이기 때문).
     그렇게 많이 쓰이지도 않음.
     ApiService를 별도의 파일로 분류할 필요는 없지만 이게 알기 편하기 떄문.
-    
+60. [StatefulWidget],[StatelessWidget] 코드액션 변경 시에 소스안에
+    [setState]나 [async],[await]처리가 있으면 코드액션 메뉴가 안나오는거 같음.
+61. [FutureBuilder]
+    future의 값을 기다리고 데이터가 존재하는지 알려줌.
+    StatelessWidget을 써도 FutureBuilder를 사용하면 비동기 처리가 가능함. async, await, setState()도 필요없게 됨.
+    final Future<List<DataModel>> datas = ApiService.getApiDatas();
+    override
+    Widget build(BuildContext context) {
+    return Scaffold(
+    // FutureBuilder에게 API데이터를 기다리게 하자.
+    body: FutureBuilder(
+    future: datas, // 우리가 API로 부터 받을 데이터이다.
+    //[builder]는 UI를 그려주는 함수다.
+    [context]는 [BuildContext]즉 UI.
+    [snapshot]은 future: datas의 상태(정상 에러등등)를 알 수가 있다.
+    공식적으로 snapshot을 쓸 뿐 이름은 바꿔도 상관없다.
+
+    builder: (context, snapshot) {
+    // [hasData]는 데이터의 유무를 확인.
+    if (snapshot.hasData) {
+    return const Text('there is data');
+    }
+    return const Text('loading');
+    },),);
+
+62. [CircularProgressIndicator]구루구루 로딩 인디케이터 표시.
+63. 많은 양의 데이터를 연속으로 보여줄떄는 [Listview]를 써야함.
+    Column이나 Row는 적당치 않음.
+    기본적으로는 아래와 같이 for문을 써서 컨트롤을 표시할수는 있으나 권장하지 않음.
+    if (snapshot.hasData) { // 여기서 이미 null 체크중.
+    return ListView(
+    children: [
+    //snapshot.data는 로직상 null이 될 수 없으므로 [!]를 붙히자.
+    for (var data in snapshot.data!) Text(data.id),
+    ],);}
+    아래와 같이 null 관련 에러메세지도 [!]로 대부분 해결 가능할 듯하다.
+    The property 'length' can't be unconditionally accessed because the receiver can be 'null'.
+    Try making the access conditional (using '?.') or adding a null check to the target ('!').
+64. [ListView]는 위와같이 한번에 다 보여준다면 메모리 소비가 심할꺼임.
+    고로 우리는 [ListView.Builder]를 사용할 필요가 있다.
+    ListView.Builder는 사용자가 보고 있는 아이템만 build한다.
+    안보이는 아이템은 알아서 메모리에서 삭제해 줄 것이다.
+    if (snapshot.hasData) {
+    return ListView.builder(
+    scrollDirection: Axis.horizontal, // 스크롤 방향으로 수평으로.
+    itemCount: snapshot.data!.length, // 전체 갯수는 데이터의 총 갯수로 설정.
+    // ListView.builder가 아이템을 호출할때.
+    어떤 아이템인지 알고 싶다면 [index]를 보면 된다. 0,1,2..이라고 알려줄 꺼임.
+    itemBuilder: (context, index) {
+    var data = snapshot.data![index];
+    return Text(data.id);
+    },)}
+65. [ListView.separated] 각 요소를 구분하기 위해 사함.
+    기본적으로 [ListView.Builder]와 기능이 같지만
+    separatorBuilder: (context, index) => const SizedBox(
+    width: 20)
+    이런식으로 요소 사이에 다른 컨트롤을 추가해서 구분할 수 있다.
+66. builder가 너무 많은거 같으면 위젯을 코드 액션으로 따로 메소드로 빼도 됨.
+67. 컬럼 안에 리스트 뷰랑 다른 위젯을 넣었을 경우 에러가 발생함.
+    [unbounded height] 제한 없는 높이값이 왔다는 에러.
+    이 경우에 리스트 뷰를 Expanded(child: 리스트 뷰 위젯) 해줘야함.
+    먼저 지정된 위젯의 크기를 기준으로 남는 크기를 리스트 뷰 위젯에 주겠다는 의도.
+68. [Image.network(url)]로 url이미지를 표시한다.
+69. 표시할 이미지가 너무 큰거 같으면 [Container]로 감싸주고 width:설정으로 해결하자.
+    아무 설정없이 컨테이너를 쓰면 플러터가 자동으로 SizedBox로 바꿔 버리므로 데코레이션을 하고 싶다면 [decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),)] 설정 등으로 데코레이션하자.
+    그냥 데코레이션 하면 안먹히니까 [clipBehavior: Clip.hardEdge] 설정도 추가하자.
+70. 박스 그림자 추가하는 방법. offset이 그림자의 위치다.
+    [boxShadow: [
+    BoxShadow(
+    blurRadius: 5,
+    offset: Offset(0, 0),
+    color: Colors.black.witOpacity(0.5) <-불투명도
+    )]]
+71. [padding] 수직 수평 설정하는 법.
+    [padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20)]
+72. 니코쎔 팁.
+    가능하면 그림자는 빨간색으로 먼저 만들어 보고 나중에 이쁘게 만든느게 낫다.
+73. 위젯을 다른 파일로 이동한 경우 원래 쓰고 있던 데이터들은
+    새로 만든 위젯 클래스에 네임드 스페이스로 옮긴다.
+74. [GestureDetector]이 위젯으로 대상 위젯을 감싸면 동작을 감지하게 됨.
+    이벤트 관련 onXXXX가 엄청 많음.
+    onTap은 onTapDown과 onTapUp의 조합이다 보통 이걸로 위젯 선택을 감지함.
+75.     

@@ -2,50 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/models/data_model.dart';
 import 'package:flutter_study/sertvices/api_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<DataModel> datas = [];
-  bool isLoading = true;
-
-  void waitForData() async {
-    datas = await ApiService.getApiDatas();
-    isLoading = false;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    waitForData();
-  }
+  final Future<List<DataModel>> datas = ApiService.getApiDatas();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Flexible(
-          flex: 1,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.green,
-            ),
-          ),
-        ),
-        Flexible(
-          flex: 2,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.green,
-            ),
-          ),
-        ),
-      ]),
+      body: FutureBuilder(
+        future: datas,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return dataList(snapshot);
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+
+  ListView dataList(AsyncSnapshot<List<DataModel>> snapshot) {
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemCount: snapshot.data!.length,
+      itemBuilder: (context, index) {
+        var data = snapshot.data![index];
+        return Text(data.id);
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 20,
+      ),
     );
   }
 }

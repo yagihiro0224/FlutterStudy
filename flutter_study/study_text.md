@@ -334,6 +334,15 @@ ApiService.getApiDatas();
 74. [GestureDetector]이 위젯으로 대상 위젯을 감싸면 동작을 감지하게 됨.
     이벤트 관련 onXXXX가 엄청 많음.
     onTap은 onTapDown과 onTapUp의 조합이다 보통 이걸로 위젯 선택을 감지함.
+
+    [onTap:]의 정의.
+    {void Function()? onTap}
+
+    정의 그대로 인자값 없는 함수고 리턴값도 없슴.
+
+    실제 쓰는 코드:
+    onTap: () {}
+
 75. 화면 전환. GestureDetector를 쓰는 방식에 따라서는 빌드조차도 안되는 경우가 있었다.
     부모와 자식 위젯 관계를 조심하라는 에러였는데 main.dart안에서 실장헸을때는 안됬고
     메인 안에 추가한 자식 위젯 소스 안에다가 했을땐 괜찮았다.
@@ -348,10 +357,12 @@ ApiService.getApiDatas();
 76. [MaterialPageRoute]의 [:builder]
     builder 정의:
     required Widget Function(BuildContext) builder
-    builder라는 매개변수는 BuildContext(현재 표시중인 화면 위젯)를 인자로 받은 함수고 위젯(이동할 화면 위젯)을 반환한다.
+
+    builder라는 매개변수는 BuildContext(표시중인 화면 위젯)를 인자로 받은 함수고 위젯(이동할 화면 위젯)을 반환한다.
 
     실제 쓰는 코드:
     builder: (context) => const AnotherScreen(),
 
 77. [Hero Widget]원래 사용중인 위젯을 가져다 오는 것처럼 보이게 해주는 위젯.
-    각각 사용할 위젯에다가 [Hero()]로 감싸주고 고유의 똑같은 [tag:]를 정해주면 된다.
+    각각 사용할 위젯에다가 [Hero()]로 감싸주고 고유의 똑같은 [tag:]를 정해주면 된다. 그러나 tag의 id도 좀 유니크 해야하고 쓰는데 어려운 점이 있을거 같음.
+78. https://jsontodart.zariman.dev/ json파일로 클래스 자동 생성해주는 사이트

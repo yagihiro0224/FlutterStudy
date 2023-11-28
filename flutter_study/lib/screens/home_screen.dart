@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/models/data_model.dart';
+import 'package:flutter_study/sertvices/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,6 +10,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<DataModel> datas = [];
+  bool isLoading = true;
+
+  void waitForData() async {
+    datas = await ApiService.getApiDatas();
+    isLoading = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    waitForData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

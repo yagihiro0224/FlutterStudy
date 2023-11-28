@@ -32,28 +32,32 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.blue.shade300,
         appBar: MyAppBar(strName: _strNameA, appColor: Colors.yellowAccent),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              MyColumn(
-                strName: _strNameA,
-                icn: Icons.access_time_filled,
-              ),
-              MyColumn(
-                strName: _strNameB,
-                icn: Icons.account_circle,
-              ),
-              MyColumn(
-                strName: _strNameA,
-                icn: Icons.add_chart_sharp,
-              ),
-              MyColumn(
-                strName: _strNameB,
-                icn: Icons.account_balance_outlined,
-              ),
-            ],
+        body: myScrollView(),
+      ),
+    );
+  }
+
+  SingleChildScrollView myScrollView() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          MyColumn(
+            strName: _strNameA,
+            icn: Icons.access_time_filled,
           ),
-        ),
+          MyColumn(
+            strName: _strNameB,
+            icn: Icons.account_circle,
+          ),
+          MyColumn(
+            strName: _strNameA,
+            icn: Icons.add_chart_sharp,
+          ),
+          MyColumn(
+            strName: _strNameB,
+            icn: Icons.account_balance_outlined,
+          ),
+        ],
       ),
     );
   }

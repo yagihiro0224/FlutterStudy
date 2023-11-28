@@ -334,4 +334,24 @@ ApiService.getApiDatas();
 74. [GestureDetector]이 위젯으로 대상 위젯을 감싸면 동작을 감지하게 됨.
     이벤트 관련 onXXXX가 엄청 많음.
     onTap은 onTapDown과 onTapUp의 조합이다 보통 이걸로 위젯 선택을 감지함.
-75.     
+75. 화면 전환. GestureDetector를 쓰는 방식에 따라서는 빌드조차도 안되는 경우가 있었다.
+    부모와 자식 위젯 관계를 조심하라는 에러였는데 main.dart안에서 실장헸을때는 안됬고
+    메인 안에 추가한 자식 위젯 소스 안에다가 했을땐 괜찮았다.
+    return GestureDetector(
+    onTap: () {
+    Navigator.push( // 화면 전환을 시킨다.
+    context, // 현재의 화면 위젯을 의미하는거 같다.
+    MaterialPageRoute( // 전환할 화면을 MaterialPageRoute로 감싸야함.
+    builder: (context) => NewScreen( <- NewScreen 전환될 화면.
+    ...네임드 스페이스 설정...
+    )))})
+76. [MaterialPageRoute]의 [:builder]
+    builder 정의:
+    required Widget Function(BuildContext) builder
+    builder라는 매개변수는 BuildContext(현재 표시중인 화면 위젯)를 인자로 받은 함수고 위젯(이동할 화면 위젯)을 반환한다.
+
+    실제 쓰는 코드:
+    builder: (context) => const AnotherScreen(),
+
+77. [Hero Widget]원래 사용중인 위젯을 가져다 오는 것처럼 보이게 해주는 위젯.
+    각각 사용할 위젯에다가 [Hero()]로 감싸주고 고유의 똑같은 [tag:]를 정해주면 된다.

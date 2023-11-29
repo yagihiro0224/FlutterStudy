@@ -443,9 +443,73 @@
     </pre>
     런처 사용 코드예:
     <pre>
-    onButtonTap() {
+    // [lunchUrl]이 주는 데이터가 [Future]이므로 await, async 한다고 생각하면 된다.
+    // [Future]데이터가 들어가면 일단 await, async 넣는다고 생각하자.
+    onButtonTap() async {
       final url = Uri.parse("https://google.com");
-      lunchUrl(url);
+      await lunchUrl(url);
+      // 혹은
+      await launchUrlString("https://google.com");
+    }
+    // 이벤트 사용 코드
+    Widget build(BuildContext context) {
+        return GestureDetector(
+            onTap: onButtonTap,
+        )
     }
     </pre>
-85. 데이터가 [Future]면 awit, async 한다고 생각하면 된다.
+85. 그냥 데이터는 $데이터명 이면 되지만.
+    데이터명.데이터명 일경우는 ${데이터명.데이터명}으로 {}를 써주자.
+    그 외 데이터와 문자를 혼합할 경우는 '${데이터명} / ${데이터명}' 이렇게 써주면 됨.
+86. App Bar의 [action:]사용법. 아래는 즐겨찾는 웹튠 버튼의 예.
+    <pre>
+    appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_outline_outlined,
+            ),)])
+    </pre>
+87. [shared_preferences]패키지를 사용하여 핸드폰 저장소에 데이터를 저장할 수 있다.
+    인스톨:
+    $ flutter pub add shared_preferences
+    사용법은 아래 사이트 참조:
+    https://pub.dev/packages/shared_preferences
+    웹툰 강의의 예제 해설.
+    <pre>
+    late SharedPreferences prefs;   // SharedPreferences을 late로 추가.
+    bool isLiked = false;
+    
+    Future initPref() async {
+        prefs = await SharedPreferences.getInstance(); // 인스터스 생성.
+        // likedToons라는 키로 저장된 String데이터가 
+        // 있는지 찾아서 likedToons에 넣어줌.
+        final likedToons = prefs.getStringList('likedToons');
+        if (likedToons != null) { // 데이터가 있슴.
+            // widget.id와 같은 데이터가 들어있는지 확인(contains)
+            if (likedToons.contains(widget.id) == true) {
+                setState(() { // 이 처리를 넣었기 때문에 기동시에 체트버튼을 설정함.
+                isLiked = true;
+            });
+        }
+        } else {
+            // 데이터가 없다면 혹은 처음 기동할 경우는 키와 공백배열값 으로 저장함.
+            await prefs.setStringList('likedToons', []);
+        }
+    }
+    @override
+    void initState() {
+        super.initState();
+        initPref(); // 이 처리는 initState에 넣어줘야함.
+    }
+    </pre>
+
+88. 패키지 설치 했을땐 무조건 에뮬레이터 재기동 해라. 안하면 런타임 에러남.
+89. icon 삼항 연산자 예.
+    <pre>
+    icon: Icon(
+        isLiked ? Icons.favorite : Icons.favorite_outline,
+    )
+    </pre>
+90. 플러터는 위대하다! firebase도 배우자!
